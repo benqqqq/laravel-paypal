@@ -67,7 +67,7 @@ class AdaptivePayments
         ];
 
         if (! empty($data['feesPayer'])) {
-            $post['feesPayer'] = $data['payer'];
+            $post['feesPayer'] = $data['feesPayer'];
         }
 
         if (! empty($data['return_url']) && ! empty($data['cancel_url'])) {
@@ -80,6 +80,21 @@ class AdaptivePayments
         $post['requestEnvelope'] = $this->setEnvelope();
 
         $response = $this->doPayPalRequest('Pay', $post);
+
+        return $response;
+    }
+
+    /**
+     * Function to perform Adaptive Payments API's PaymentDetails operation
+     *
+     * @param $data
+     */
+    public function createDetailRequest($data)
+    {
+        $post = $data;
+        $post['requestEnvelope'] = $this->setEnvelope();
+
+        $response = $this->doPayPalRequest('PaymentDetails', $post);
 
         return $response;
     }
